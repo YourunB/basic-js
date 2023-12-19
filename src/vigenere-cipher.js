@@ -24,6 +24,10 @@ class VigenereCipheringMachine {
   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   alphabetTable = [];
 
+  constructor(nonReverseMessage = true) {
+      this.nonReverseMessage = nonReverseMessage;
+    }
+
   getTable() {
     for (let i = 0; i < this.alphabet.length; i += 1) {
       let leftAlphabet = this.alphabet.slice(i);
@@ -59,7 +63,7 @@ class VigenereCipheringMachine {
         cipherMessage = cipherMessage.slice(0, tempUndefined[i][0]) + tempUndefined[i][1] + cipherMessage.slice(tempUndefined[i][0], cipherMessage.length + 1)
       }
 
-      return cipherMessage.trim();
+      return (this.nonReverseMessage === true) ? cipherMessage.trim() : cipherMessage.trim().split('').reverse().join('');
     } else throw new Error('Incorrect arguments!');
   }
 
@@ -89,7 +93,7 @@ class VigenereCipheringMachine {
         cipherMessage = cipherMessage.slice(0, tempUndefined[i][0]) + tempUndefined[i][1] + cipherMessage.slice(tempUndefined[i][0], cipherMessage.length + 1)
       }
 
-      return cipherMessage.trim();
+      return (this.nonReverseMessage === true) ? cipherMessage.trim() : cipherMessage.trim().split('').reverse().join('');
     } else throw new Error('Incorrect arguments!');
   }
 }
