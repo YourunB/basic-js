@@ -24,11 +24,11 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function getDNSStats(domains) {
   let obj = {};
-  domains.forEach(domain => {
+  domains.map(domain => {
     let domainsParts = domain.split('.').reverse();
     console.log(domainsParts)
     let resDns = '';
-    domainsParts.forEach(part => {
+    domainsParts.map(part => {
       resDns += '.' + part;
       if (!obj[resDns]) obj[resDns] = 1;
       else obj[resDns] = obj[resDns] + 1;
