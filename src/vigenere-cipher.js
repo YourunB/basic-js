@@ -59,12 +59,38 @@ class VigenereCipheringMachine {
         cipherMessage = cipherMessage.slice(0, tempUndefined[i][0]) + tempUndefined[i][1] + cipherMessage.slice(tempUndefined[i][0], cipherMessage.length + 1)
       }
 
-      return cipherMessage;
+      return cipherMessage.trim();
     } else throw new Error('Incorrect arguments!');
   }
 
-  decrypt() {
-  
+  decrypt(message, word) {
+    if (message && word) {
+
+      let tempUndefined = [];
+      const messageReserve = message.toUpperCase();
+      for (let i = 0; i < messageReserve.length; i += 1) {
+        if (this.alphabet.indexOf(messageReserve[i]) === -1) tempUndefined.push([i, messageReserve[i]]); // [index, char]
+      }
+
+      message = message.toUpperCase().replace(/\s/g, "");
+      word = word.toUpperCase().replace(/\s/g, "");
+
+      while (word.length < message.length) word = word + word;
+      word = word.slice(0, message.length)
+
+      this.getTable();
+
+      let cipherMessage = '';
+      for (let i = 0; i < message.length; i += 1) {
+        if (this.alphabet.indexOf(message[i]) !== -1) cipherMessage += this.alphabet[this.alphabetTable[this.alphabet.indexOf(word[i])].indexOf(message[i])];
+      }
+
+      for (let i = 0; i < tempUndefined.length; i += 1) {
+        cipherMessage = cipherMessage.slice(0, tempUndefined[i][0]) + tempUndefined[i][1] + cipherMessage.slice(tempUndefined[i][0], cipherMessage.length + 1)
+      }
+
+      return cipherMessage.trim();
+    } else throw new Error('Incorrect arguments!');
   }
 }
 
