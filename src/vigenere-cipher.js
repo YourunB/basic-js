@@ -34,7 +34,7 @@ class VigenereCipheringMachine {
   }
 
   encrypt(message, word) {
-  
+    console.log(this.alphabetTable)
   }
   decrypt() {
   
